@@ -9,50 +9,56 @@
 </head>
 <body>
   <div class="container">
-        <ul class="nav nav-pills">
-          <% if user_signed_in? %>
-          <li><%= link_to "Wikis", wikis_path %>
-          <% else %>
-          <li><%= link_to "Blocipedia", welcome_index_path %></li>
-          <% end %>
-        </ul>
-
-      <div class="row">
-        <div class="col-md-6">
-        <% if user_signed_in? %>
-          Signed in as: <strong><%= current_user.email %></strong> |
-          <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-        <% else %>
-          <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link'  %> -
-          <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link'  %>
-        <% end %>
-        </div>
-      </div>
-      <%= yield %>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <div class="flash">
-            <% if flash[:notice] %>
-              <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <%= flash[:notice] %>
-              </div>
-
-            <% elsif flash[:error] %>
-              <div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <%= flash[:error] %>
-              </div>
-
-            <% elsif flash[:alert] %>
-              <div class="alert alert-warning">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <%= flash[:alert] %>
-              </div>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <ul class="nav nav-pills">
+            <% if user_signed_in? %>
+            <li><%= link_to "Wikis", wikis_path %></li>
+            <% else %>
+            <li><%= link_to "Blocipedia", welcome_index_path %></li>
             <% end %>
-          </div>
+          </ul>
+
         </div>
       </div>
+    </nav>
+    <div class="pull-right user-info">
+      <% if user_signed_in? %>
+        Signed in as: <strong><%= current_user.email %></strong> |
+        <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+      <% else %>
+        <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link'  %> -
+        <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link'  %>
+      <% end %>
+    </div>
+
+    <%= yield %>
+
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="flash">
+          <% if flash[:notice] %>
+            <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= flash[:notice] %>
+            </div>
+
+          <% elsif flash[:error] %>
+            <div class="alert alert-danger">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= flash[:error] %>
+            </div>
+
+          <% elsif flash[:alert] %>
+            <div class="alert alert-warning">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
