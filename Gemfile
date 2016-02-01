@@ -30,6 +30,8 @@ gem 'devise'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
+
+gem 'pundit'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 group :production do
