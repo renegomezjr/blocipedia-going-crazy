@@ -15,6 +15,7 @@
           <ul class="nav nav-pills">
             <% if user_signed_in? %>
             <li><%= link_to "Wikis", wikis_path %></li>
+            <li><%= link_to "My profile", user_path(current_user) %></li>
             <% else %>
             <li><%= link_to "Blocipedia", welcome_index_path %></li>
             <% end %>
