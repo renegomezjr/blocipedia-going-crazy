@@ -1,9 +1,20 @@
+<% if @user.standard? %>
 <div class="row">
-  <div class="col-md-12">
-    <h1><%= @user.email %> </h1>
-    <p>You have published <%= @user.wikis.count %> wikis.</p>
+  <div class="col-md-12 text-right">
+   <h5> Would you like to upgrade to a <%= link_to "Premium Membership", new_charge_path %>!</h5>
   </div>
 </div>
+<% end %>
+
+
+<div class="row">
+  <div class="col-md-4">
+    <h1><%= @user.email %> </h1>
+    <p>You have published <%= @user.wikis.count %> wikis.</p>
+    <small><%= @user.role %> member</small>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-12">
     <h1>Wikis</h1>
