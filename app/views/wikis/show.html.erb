@@ -1,8 +1,7 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <h1><%= @wiki.title %><br>
-      <small>Created by <%= @wiki.user.email %> </small>
-    </h1>
+    <h1><%= @wiki.title %></h1>
+    <p><small>Created <%= time_ago_in_words(@wiki.created_at) %> ago, by <%= @wiki.user.email %></small></p>
     <p><%= @wiki.body %></p>
   </div>
 </div>
