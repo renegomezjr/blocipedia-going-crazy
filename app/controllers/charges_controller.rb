@@ -2,20 +2,21 @@ class ChargesController < ApplicationController
   require 'stripe'
 
   def create
-
-    if current_user.customerid.nil?
+    @user = current_user
+    if @user.customerid.nil?
       customer = Stripe::Customer.create(
       email: current_user.email,
       card: params[:stripeToken],
       plan: 1
       )
+      puts customer
+      @user.update_attributes(customerid: customer.id)
     else
       customer = Stripe::Customer.retrieve(current_user.customerid)
       customer.subscriptions.create(:plan => 1)
     end
 
     flash[:notice] = "Thanks for purchasing a Premium Membership, #{current_user.email}! Enjoy the ability to make private Wikis."
-    @user = current_user
     @user.update_attributes(role: 1)
     redirect_to user_path(current_user)
 
@@ -28,7 +29,13 @@ class ChargesController < ApplicationController
     Stripe.api_key
     customer = Stripe::Customer.retrieve(current_user.customerid)
     subscription_id = customer.subscriptions.data.first.id
+
     customer.subscriptions.retrieve(subscription_id).delete
+
+    ch = Stripe::Charge.all(current_user.customerid)
+    charge_id = ch.data.first.id
+    
+    re = Stripe::Refund.create(charge_id)
     @user = current_user
     @user.update_attributes(role: 0)
     redirect_to user_path(current_user)
@@ -42,6 +49,7 @@ class ChargesController < ApplicationController
 
   def new
     @stripe_btn_data = {
+     email: current_user.email,
      key: "#{ Rails.configuration.stripe[:publishable_key] }",
      description: "Premium Membership - #{current_user.email}",
      amount: 1500
