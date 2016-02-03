@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  delete '/downgrade', to: 'charges#downgrade'
 
   resources :charges
 
