@@ -9,7 +9,6 @@ class ChargesController < ApplicationController
       card: params[:stripeToken],
       plan: 1
       )
-      puts customer
       @user.update_attributes(customerid: customer.id)
     else
       customer = Stripe::Customer.retrieve(current_user.customerid)
@@ -29,13 +28,16 @@ class ChargesController < ApplicationController
     Stripe.api_key
     customer = Stripe::Customer.retrieve(current_user.customerid)
     subscription_id = customer.subscriptions.data.first.id
-
     customer.subscriptions.retrieve(subscription_id).delete
 
-    ch = Stripe::Charge.all(current_user.customerid)
+    ch = Stripe::Charge.all(customer: customer.id)
     charge_id = ch.data.first.id
-    
-    re = Stripe::Refund.create(charge_id)
+
+    re = Stripe::Refund.create(
+      charge: charge_id,
+      amount: 1000
+      )
+
     @user = current_user
     @user.update_attributes(role: 0)
     redirect_to user_path(current_user)
