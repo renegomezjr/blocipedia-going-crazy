@@ -1,26 +1,25 @@
-<% if @user.standard? %>
 <div class="row">
   <div class="col-md-12 text-right">
-   <h5> Would you like to upgrade to a <%= link_to "Premium Membership", new_charge_path %>!</h5>
+  <% if @user.standard? %>
+    <h5> Would you like to upgrade to a <%= link_to "Premium Membership", new_charge_path %>!</h5>
+  <% else %>
+    <small><%= @user.role %> member</small>
+  <% end %>
   </div>
 </div>
-<% end %>
-
 
 <div class="row">
   <div class="col-md-4">
     <h1><%= @user.email %> </h1>
     <p>You have published <%= @user.wikis.count %> wikis.</p>
-    <small><%= @user.role %> member</small>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <h1>Wikis</h1>
     <%= link_to "New Wiki", new_wiki_path, class:"btn btn-success" %>
-    <% @user.wikis.each do |wiki| %>
+  <% @user.wikis.each do |wiki| %>
     <h4><%= link_to wiki.title, wiki_path(wiki.id) %></h4>
-    <% end %>
+  <% end %>
   </div>
 </div>

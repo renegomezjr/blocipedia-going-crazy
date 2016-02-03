@@ -1,4 +1,4 @@
-
+<% if current_user.standard? %>
 <div class="row">
   <div class="col-md-4 col-md-offset-4 text-center">
     <div class="jumbotron">
@@ -10,3 +10,6 @@
     </div>
   </div>
 </div>
+<% else %>
+  <h3> You are a Premium Member!</h3>
+<% end %>
