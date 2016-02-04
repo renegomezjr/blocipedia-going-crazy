@@ -3,8 +3,8 @@
   <% if @user.standard? %>
     <h5> Would you like to upgrade to a <%= link_to "Premium Membership", new_charge_path %>!</h5>
   <% else %>
-    <p><%= @user.role %> member </p>
-    <small><%= link_to "downgrade", charge_path, method: :delete, class:"btn", data: {confirm: "Are you sure you want to downgrade? You won't be able to make private wikis anymore."} %></small>
+    <p><%= @user.role %> member<br>
+    <small><%= link_to "downgrade", charge_path, method: :delete, class:"btn", data: {confirm: "Are you sure you want to downgrade? You won't be able to make private wikis anymore."} %></small></p>
   <% end %>
   </div>
 </div>
