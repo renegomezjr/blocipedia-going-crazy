@@ -12,10 +12,12 @@
     <%= f.text_area :body, rows: 15, class:"form-control", placeholder:"Write your Wiki here" %>
     </div>
 
+    <% if current_user.admin? || current_user.premium? %>
     <div class="form-group">
     <%= f.label :private %>
     <%= f.check_box :private %>
     </div>
+    <% end %>
 
     <div class="form-group">
     <%= f.submit "Save" %>
