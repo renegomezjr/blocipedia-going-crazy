@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-12 text-right">
+  <% if @user.standard? %>
+    <h5> Would you like to upgrade to a <%= link_to "Premium Membership", new_charge_path %>!</h5>
+  <% else %>
+    <p><%= @user.role %> member </p>
+    <small><%= link_to "downgrade", charge_path, method: :delete, class:"btn", data: {confirm: "Are you sure you want to downgrade? You won't be able to make private wikis anymore."} %></small>
+  <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h1><%= @user.email %> </h1>
+    <p>You have published <%= @user.wikis.count %> wikis.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to "New Wiki", new_wiki_path, class:"btn btn-success" %>
+  <% @user.wikis.each do |wiki| %>
+    <h4><%= link_to wiki.title, wiki_path(wiki.id) %></h4>
+  <% end %>
+  </div>
+</div>
