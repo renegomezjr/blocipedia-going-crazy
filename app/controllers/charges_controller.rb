@@ -39,6 +39,8 @@ class ChargesController < ApplicationController
       )
 
     @user = current_user
+    @wikis = @user.wikis
+    @wikis.update_all(private: false)
     @user.update_attributes(role: 0)
     redirect_to user_path(current_user)
 

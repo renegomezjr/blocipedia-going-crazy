@@ -1,10 +1,17 @@
 class WikisController < ApplicationController
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.visible_to(current_user)
   end
 
   def show
+
     @wiki = Wiki.find(params[:id])
+
+    if @wiki.private? && current_user.standard?
+      flash[:notice] = "You must have a Premium Membership to see private wikis."
+      redirect_to user_path(current_user)
+    end
+
   end
 
   def new

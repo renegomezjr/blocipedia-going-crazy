@@ -4,7 +4,7 @@
     <h5> Would you like to upgrade to a <%= link_to "Premium Membership", new_charge_path %>!</h5>
   <% else %>
     <p><%= @user.role %> member<br>
-    <small><%= link_to "downgrade", charge_path, method: :delete, class:"btn", data: {confirm: "Are you sure you want to downgrade? You won't be able to make private wikis anymore."} %></small></p>
+    <small><%= link_to "downgrade", charge_path, method: :delete, class:"btn", data: {confirm: "Are you sure you want to downgrade? You won't be able to make private wikis anymore, and all your private wikis will become public."} %></small></p>
   <% end %>
   </div>
 </div>
@@ -20,7 +20,7 @@
   <div class="col-md-12">
     <%= link_to "New Wiki", new_wiki_path, class:"btn btn-success" %>
   <% @user.wikis.each do |wiki| %>
-    <h4><%= link_to wiki.title, wiki_path(wiki.id) %></h4>
+    <h4><%= link_to wiki.title, wiki_path(wiki.id) %> <small><%= wiki.priv_pub %></small></h4>
   <% end %>
   </div>
 </div>
