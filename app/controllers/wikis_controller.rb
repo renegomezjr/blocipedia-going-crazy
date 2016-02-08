@@ -4,7 +4,6 @@ class WikisController < ApplicationController
   end
 
   def show
-
     @wiki = Wiki.find(params[:id])
 
     if @wiki.private? && current_user.standard?
