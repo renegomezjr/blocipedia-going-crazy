@@ -3,7 +3,10 @@ Rails.application.routes.draw do
 
   resources :charges
 
-  resources :wikis
+  resources :wikis do
+    resources :collaborators
+  end
+
 
   devise_for :users
 
